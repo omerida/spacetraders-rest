@@ -1,5 +1,5 @@
 {
-  "name": "phparch/space-traders",
+  "name": "phparch/spacetraders-rest",
   "description": "Space Traders API client in PHP",
   "type": "project",
   "license": "MIT",
