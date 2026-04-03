@@ -16,41 +16,22 @@ return static function (Config $config): void {
 
     $rules = [];
 
-    /* Controller Rules */
-    $rules[] = Rule::allClasses()
-        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTraders\Controller'))
-        ->should(new HaveNameMatching('*Controller'))
-        ->because('we want uniform naming for controllers');
-
     /* API Client Rules */
     $rules[] = Rule::allClasses()
-        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTraders\Client'))
-        ->should(new IsA('Phparch\SpaceTraders\Client'))
+        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTradersRest\Client'))
+        ->should(new IsA('Phparch\SpaceTradersRest\Client'))
         ->because('we want to ensure clients behave consistently.');
-
-    /* Interface Rules */
-    $rules[] = Rule::allClasses()
-        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTraders\Interface'))
-        ->should(new IsInterface())
-        ->because('we want only intefaces in this namespace.');
-
-    /* Middleware Rules */
-    $rules[] = Rule::allClasses()
-        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTraders\Middleware'))
-        ->should(new IsA('Psr\Http\Server\MiddlewareInterface'))
-        ->because('we want middleware classes to implement the PSR interface.');
-
 
     /* Traits Rules */
     $rules[] = Rule::allClasses()
-        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTraders\Trait'))
+        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTradersRest\Trait'))
         ->should(new IsTrait())
         ->because('we want to be sure that there are only traits in a specific namespace');
 
     /* Value Object Rules */
     $rules[] = Rule::allClasses()
-        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTraders\Value'))
-        ->should(new DependsOnlyOnTheseNamespaces(['Phparch\SpaceTraders\Value'], []))
+        ->that(new ResideInOneOfTheseNamespaces('Phparch\SpaceTradersRest\Value'))
+        ->should(new DependsOnlyOnTheseNamespaces(['Phparch\SpaceTradersRest\Value'], []))
         ->because('we want to protect our domain from external dependencies except for Ramsey\Uuid');
 
 
