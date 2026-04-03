@@ -29,7 +29,6 @@
     "ext-readline": "*",
     "ext-curl": "*",
     "ext-apcu": "*",
-    "minicli/minicli": "^4.2",
     "php-di/php-di": "^7.0",
     "guzzlehttp/guzzle": "^7.8",
     "vlucas/phpdotenv": "^5.6",
@@ -37,12 +36,10 @@
     "predis/predis": "^2.3",
     "kevinrob/guzzle-cache-middleware": "^5.1",
     "symfony/cache": "^7.2",
-    "league/route": "^6.1",
     "guzzlehttp/psr7": "^2.7",
     "laminas/laminas-httphandlerrunner": "^2.11",
     "lcobucci/jwt": "^5.5",
-    "roave/better-reflection": "6.67.x-dev",
-    "twig/twig": "^3.0"
+    "roave/better-reflection": "6.67.x-dev"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",
@@ -51,7 +48,6 @@
     "phpmd/phpmd": "3.x-dev",
     "pdepend/pdepend": "3.x-dev",
     "phpbench/phpbench": "^1.4",
-    "vincentlanglet/twig-cs-fixer": "^3.8",
     "bmitch/churn-php": "^1.7",
     "phparkitect/phparkitect": "^0.7.0",
     "rector/rector": "^2.3"
@@ -71,15 +67,13 @@
     }
   },
   "scripts": {
-    "check-code": ["@phpcs",  "@phpstan", "@phparkitect", "@twig-lint"],
-    "fix-code": ["@phpcbf", "@twig-lint-fix"],
+    "check-code": ["@phpcs",  "@phpstan", "@phparkitect"],
+    "fix-code": ["@phpcbf"],
     "phpmd": "vendor/bin/phpmd --ignore-violations-on-exit --ignore-errors-on-exit src text phpmd.xml" ,
     "phpstan": "vendor/bin/phpstan --memory-limit=1G",
     "phpcs": "vendor/bin/phpcs -s",
     "phpcbf": "vendor/bin/phpcbf",
     "churn": "vendor/bin/churn",
-    "phparkitect": "vendor/bin/phparkitect check",
-    "twig-lint": "vendor/bin/twig-cs-fixer lint templates",
-    "twig-lint-fix": "vendor/bin/twig-cs-fixer lint --fix templates"
+    "phparkitect": "vendor/bin/phparkitect check"
   }
 }
