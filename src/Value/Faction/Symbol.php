@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Faction;
+namespace Phparch\SpaceTradersRest\Value\Faction;
 
 class Symbol implements \Stringable
 {

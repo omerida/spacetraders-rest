@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Engine;
+namespace Phparch\SpaceTradersRest\Value\Ship\Engine;
 
 enum Symbol: string
 {

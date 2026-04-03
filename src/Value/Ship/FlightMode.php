@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship;
+namespace Phparch\SpaceTradersRest\Value\Ship;
 
 enum FlightMode: string
 {

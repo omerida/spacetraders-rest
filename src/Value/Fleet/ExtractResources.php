@@ -1,11 +1,11 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Fleet;
+namespace Phparch\SpaceTradersRest\Value\Fleet;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
-use Phparch\SpaceTraders\Value\Ship\CargoDetails;
-use Phparch\SpaceTraders\Value\Ship\CoolDown;
-use Phparch\SpaceTraders\Value\Ship\Extraction\Details;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Value\Ship\CargoDetails;
+use Phparch\SpaceTradersRest\Value\Ship\CoolDown;
+use Phparch\SpaceTradersRest\Value\Ship\Extraction\Details;
 
 class ExtractResources
 {

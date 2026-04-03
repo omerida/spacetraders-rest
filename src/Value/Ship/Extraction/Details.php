@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Extraction;
+namespace Phparch\SpaceTradersRest\Value\Ship\Extraction;
 
 class Details
 {

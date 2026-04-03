@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Goods;
+namespace Phparch\SpaceTradersRest\Value\Goods;
 
 enum Symbol: string
 {

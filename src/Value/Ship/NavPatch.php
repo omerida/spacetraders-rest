@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship;
+namespace Phparch\SpaceTradersRest\Value\Ship;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
 
 class NavPatch
 {

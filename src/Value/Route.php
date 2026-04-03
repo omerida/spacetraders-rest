@@ -1,9 +1,9 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
-use Phparch\SpaceTraders\Value\Ship\Destination;
-use Phparch\SpaceTraders\Value\Ship\Origin;
+use Phparch\SpaceTradersRest\Value\Ship\Destination;
+use Phparch\SpaceTradersRest\Value\Ship\Origin;
 
 class Route
 {

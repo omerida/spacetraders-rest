@@ -1,10 +1,10 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship;
+namespace Phparch\SpaceTradersRest\Value\Ship;
 
-use Phparch\SpaceTraders\Trait\IsWaypointType;
-use Phparch\SpaceTraders\Value\System;
-use Phparch\SpaceTraders\Value\Waypoint;
+use Phparch\SpaceTradersRest\Trait\IsWaypointType;
+use Phparch\SpaceTradersRest\Value\System;
+use Phparch\SpaceTradersRest\Value\Waypoint;
 
 class Destination
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Contract;
+namespace Phparch\SpaceTradersRest\Value\Contract;
 
-use Phparch\SpaceTraders\Value\PaymentTerms;
+use Phparch\SpaceTradersRest\Value\PaymentTerms;
 
 class Terms
 {

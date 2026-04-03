@@ -1,13 +1,13 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Shipyard;
+namespace Phparch\SpaceTradersRest\Value\Shipyard;
 
-use Phparch\SpaceTraders\Value\Goods\SupplyLevel;
-use Phparch\SpaceTraders\Value\Goods\TradeActivityLevel;
-use Phparch\SpaceTraders\Value\Ship as Ships;
-use Phparch\SpaceTraders\Value\Ship\Module;
-use Phparch\SpaceTraders\Value\Ship\Mount;
-use Phparch\SpaceTraders\Value\Shipyard\Ship\Crew;
+use Phparch\SpaceTradersRest\Value\Goods\SupplyLevel;
+use Phparch\SpaceTradersRest\Value\Goods\TradeActivityLevel;
+use Phparch\SpaceTradersRest\Value\Ship as Ships;
+use Phparch\SpaceTradersRest\Value\Ship\Module;
+use Phparch\SpaceTradersRest\Value\Ship\Mount;
+use Phparch\SpaceTradersRest\Value\Shipyard\Ship\Crew;
 
 class Ship
 {

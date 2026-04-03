@@ -1,11 +1,11 @@
 <?php
 
-namespace Phparch\SpaceTraders\Client;
+namespace Phparch\SpaceTradersRest\Client;
 
-use Phparch\SpaceTraders\Response;
-use Phparch\SpaceTraders\Value;
+use Phparch\SpaceTradersRest\Response;
+use Phparch\SpaceTradersRest\Value;
 
-class Systems extends \Phparch\SpaceTraders\Client
+class Systems extends \Phparch\SpaceTradersRest\Client
 {
     public function market(string $system, string $waypoint): Value\Market
     {
@@ -42,7 +42,7 @@ class Systems extends \Phparch\SpaceTraders\Client
      *     'limit'?: int,
      *     'page'?: int,
      *     'traits'?: string,
-     *     'type'?:value-of<\Phparch\SpaceTraders\Value\Waypoint\Type>
+     *     'type'?:value-of<\Phparch\SpaceTradersRest\Value\Waypoint\Type>
      * } $queryParams
      */
     public function waypoints(string $system, array $queryParams = []): Value\Waypoints

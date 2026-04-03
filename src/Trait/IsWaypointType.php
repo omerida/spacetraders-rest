@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Trait;
+namespace Phparch\SpaceTradersRest\Trait;
 
-use Phparch\SpaceTraders\Value\Waypoint\Type;
+use Phparch\SpaceTradersRest\Value\Waypoint\Type;
 
 trait IsWaypointType
 {

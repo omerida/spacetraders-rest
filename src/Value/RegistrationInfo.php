@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
-use Phparch\SpaceTraders\Value\Faction\Symbol;
+use Phparch\SpaceTradersRest\Value\Faction\Symbol;
 
 class RegistrationInfo
 {

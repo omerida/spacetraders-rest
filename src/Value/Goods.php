@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
-use Phparch\SpaceTraders\Value\Goods\Symbol;
+use Phparch\SpaceTradersRest\Value\Goods\Symbol;
 
 class Goods
 {

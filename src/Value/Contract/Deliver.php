@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Contract;
+namespace Phparch\SpaceTradersRest\Value\Contract;
 
 class Deliver
 {

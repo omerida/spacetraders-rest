@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship;
+namespace Phparch\SpaceTradersRest\Value\Ship;
 
-use Phparch\SpaceTraders\Value\FuelConsumed;
+use Phparch\SpaceTradersRest\Value\FuelConsumed;
 
 class Fuel
 {

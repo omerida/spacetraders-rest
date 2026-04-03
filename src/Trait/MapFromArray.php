@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Trait;
+namespace Phparch\SpaceTradersRest\Trait;
 
 use CuyZ\Valinor;
 

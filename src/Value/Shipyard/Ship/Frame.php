@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Shipyard\Ship;
+namespace Phparch\SpaceTradersRest\Value\Shipyard\Ship;
 
-use Phparch\SpaceTraders\Value\Ship\Frame\Requirements;
+use Phparch\SpaceTradersRest\Value\Ship\Frame\Requirements;
 
 class Frame
 {

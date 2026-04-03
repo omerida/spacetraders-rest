@@ -1,11 +1,11 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Fleet;
+namespace Phparch\SpaceTradersRest\Value\Fleet;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
-use Phparch\SpaceTraders\Value\Agent;
-use Phparch\SpaceTraders\Value\Market\Transaction;
-use Phparch\SpaceTraders\Value\Ship\CargoDetails;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Value\Agent;
+use Phparch\SpaceTradersRest\Value\Market\Transaction;
+use Phparch\SpaceTradersRest\Value\Ship\CargoDetails;
 
 class SellCargo
 {

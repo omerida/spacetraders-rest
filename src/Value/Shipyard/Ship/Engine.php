@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Shipyard\Ship;
+namespace Phparch\SpaceTradersRest\Value\Shipyard\Ship;
 
-use Phparch\SpaceTraders\Value\Ship\Engine\Requirements;
+use Phparch\SpaceTradersRest\Value\Ship\Engine\Requirements;
 
 class Engine
 {

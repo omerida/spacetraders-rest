@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Mount;
+namespace Phparch\SpaceTradersRest\Value\Ship\Mount;
 
 class Requirements
 {

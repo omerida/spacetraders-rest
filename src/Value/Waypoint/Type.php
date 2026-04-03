@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Waypoint;
+namespace Phparch\SpaceTradersRest\Value\Waypoint;
 
 enum Type: string
 {

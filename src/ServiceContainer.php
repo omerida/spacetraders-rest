@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders;
+namespace Phparch\SpaceTradersRest;
 
 use DI;
 use DI\Container;
@@ -93,13 +93,13 @@ final class ServiceContainer
     protected static function isAPIClient(ReflectionClass $class): bool
     {
         $name = $class->getNamespaceName();
-        if ($name !== \Phparch\SpaceTraders\Client::class) {
+        if ($name !== \Phparch\SpaceTradersRest\Client::class) {
             return false;
         }
 
         if (
             in_array(
-                needle: \Phparch\SpaceTraders\Client::class,
+                needle: \Phparch\SpaceTradersRest\Client::class,
                 haystack: $class->getParentClassNames(),
                 strict: true
             )
@@ -111,7 +111,7 @@ final class ServiceContainer
     }
 
     /**
-     * Automatically register children of \Phparch\SpaceTraders\Client
+     * Automatically register children of \Phparch\SpaceTradersRest\Client
      */
     protected static function registerApiClients(BetterReflection $ref, bool $useAPCU): void
     {

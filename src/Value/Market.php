@@ -1,12 +1,12 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
-use Phparch\SpaceTraders\Value\Goods\Detail;
-use Phparch\SpaceTraders\Value\Market\TradeGoods;
-use Phparch\SpaceTraders\Value\Market\Transaction;
-use Phparch\SpaceTraders\Value\Waypoint\Symbol;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Value\Goods\Detail;
+use Phparch\SpaceTradersRest\Value\Market\TradeGoods;
+use Phparch\SpaceTradersRest\Value\Market\Transaction;
+use Phparch\SpaceTradersRest\Value\Waypoint\Symbol;
 
 class Market
 {

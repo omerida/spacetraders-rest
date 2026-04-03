@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
 final class Orbital
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Shipyard;
+namespace Phparch\SpaceTradersRest\Value\Shipyard;
 
-use Phparch\SpaceTraders\Value\Ship;
-use Phparch\SpaceTraders\Value\Waypoint\Symbol;
+use Phparch\SpaceTradersRest\Value\Ship;
+use Phparch\SpaceTradersRest\Value\Waypoint\Symbol;
 
 class Transaction
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Reactor;
+namespace Phparch\SpaceTradersRest\Value\Ship\Reactor;
 
 class Requirements
 {

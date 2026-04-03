@@ -1,15 +1,15 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Fleet;
+namespace Phparch\SpaceTradersRest\Value\Fleet;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
 
 class ShipMounts
 {
     use MapFromArray;
 
     public function __construct(
-        /** @var \Phparch\SpaceTraders\Value\Ship\Mount[] */
+        /** @var \Phparch\SpaceTradersRest\Value\Ship\Mount[] */
         public array $mounts,
     ) {
     }

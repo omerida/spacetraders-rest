@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Extraction;
+namespace Phparch\SpaceTradersRest\Value\Ship\Extraction;
 
-use Phparch\SpaceTraders\Value\Goods\Symbol;
+use Phparch\SpaceTradersRest\Value\Goods\Symbol;
 
 class YieldResult
 {

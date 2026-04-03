@@ -6,6 +6,7 @@ use Phparch\SpaceTraders\Rector\NonNegativeIntToPromotedPropertyHook;
 use Phparch\SpaceTraders\Rector\NonEmptyStringToPromotedPropertyHook;
 use Phparch\SpaceTraders\Rector\PositiveIntToPromotedPropertyHook;
 use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\Name\RenameClassRector;
 
 return RectorConfig::configure()
     ->withPaths([

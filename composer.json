@@ -1,6 +1,6 @@
 {
   "name": "phparch/space-traders",
-  "description": "Space Traders client in PHP",
+  "description": "Space Traders API client in PHP",
   "type": "project",
   "license": "MIT",
   "config": {
@@ -8,13 +8,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phparch\\SpaceTradersCLI\\": "cli/",
-      "Phparch\\SpaceTraders\\": "src/"
+      "Phparch\\SpaceTradersRest\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Phparch\\SpaceTraders\\Tests\\": "tests/"
+      "Phparch\\SpaceTradersRest\\Tests\\": "tests/"
     }
   },
   "authors": [

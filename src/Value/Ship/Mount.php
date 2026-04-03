@@ -1,10 +1,10 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship;
+namespace Phparch\SpaceTradersRest\Value\Ship;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
-use Phparch\SpaceTraders\Value\Ship\Mount\Deposit;
-use Phparch\SpaceTraders\Value\Ship\Mount\Requirements;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Value\Ship\Mount\Deposit;
+use Phparch\SpaceTradersRest\Value\Ship\Mount\Requirements;
 
 class Mount
 {

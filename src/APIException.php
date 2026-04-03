@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders;
+namespace Phparch\SpaceTradersRest;
 
 class APIException extends \Exception
 {

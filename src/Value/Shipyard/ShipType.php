@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Shipyard;
+namespace Phparch\SpaceTradersRest\Value\Shipyard;
 
-use Phparch\SpaceTraders\Value\Ship;
+use Phparch\SpaceTradersRest\Value\Ship;
 
 class ShipType
 {

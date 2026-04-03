@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders;
+namespace Phparch\SpaceTradersRest;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

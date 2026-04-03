@@ -1,10 +1,10 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Contract;
+namespace Phparch\SpaceTradersRest\Value\Contract;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
-use Phparch\SpaceTraders\Value\Agent;
-use Phparch\SpaceTraders\Value\Contract;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Value\Agent;
+use Phparch\SpaceTradersRest\Value\Contract;
 
 class Accept
 {

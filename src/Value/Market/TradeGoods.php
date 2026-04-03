@@ -1,11 +1,11 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Market;
+namespace Phparch\SpaceTradersRest\Value\Market;
 
-use Phparch\SpaceTraders\Value\Goods\Symbol;
-use Phparch\SpaceTraders\Value\Goods\SupplyLevel;
-use Phparch\SpaceTraders\Value\Goods\TradeActivityLevel;
-use Phparch\SpaceTraders\Value\TradegoodType;
+use Phparch\SpaceTradersRest\Value\Goods\Symbol;
+use Phparch\SpaceTradersRest\Value\Goods\SupplyLevel;
+use Phparch\SpaceTradersRest\Value\Goods\TradeActivityLevel;
+use Phparch\SpaceTradersRest\Value\TradegoodType;
 
 class TradeGoods
 {

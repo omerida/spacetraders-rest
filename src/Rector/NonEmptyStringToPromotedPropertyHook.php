@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phparch\SpaceTraders\Rector;
+namespace Phparch\SpaceTradersRest\Rector;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Smaller;

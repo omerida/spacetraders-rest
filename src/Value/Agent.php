@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
 
 class Agent
 {

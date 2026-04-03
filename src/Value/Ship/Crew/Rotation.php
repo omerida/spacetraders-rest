@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Crew;
+namespace Phparch\SpaceTradersRest\Value\Ship\Crew;
 
 enum Rotation: string
 {

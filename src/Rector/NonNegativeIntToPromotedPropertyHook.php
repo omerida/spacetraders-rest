@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phparch\SpaceTraders\Rector;
+namespace Phparch\SpaceTradersRest\Rector;
 
 use PhpParser\Modifiers;
 use PhpParser\Node;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Shipyard\Ship;
+namespace Phparch\SpaceTradersRest\Value\Shipyard\Ship;
 
 class Crew
 {

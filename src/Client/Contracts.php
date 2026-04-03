@@ -1,18 +1,18 @@
 <?php
 
-namespace Phparch\SpaceTraders\Client;
+namespace Phparch\SpaceTradersRest\Client;
 
-use Phparch\SpaceTraders\Client;
-use Phparch\SpaceTraders\Response;
-use Phparch\SpaceTraders\Value\Contract;
+use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Value;
+use Phparch\SpaceTradersRest\Value\Contract;
 
 class Contracts extends Client
 {
-    public function myContracts(): \Phparch\SpaceTraders\Value\Contracts
+    public function myContracts(): Value\Contracts
     {
         return $this->convertResponse(
             $this->get('my/contracts'),
-            \Phparch\SpaceTraders\Value\Contracts::class
+            Value\Contracts::class
         );
     }
 

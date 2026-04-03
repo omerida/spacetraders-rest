@@ -1,11 +1,11 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship;
+namespace Phparch\SpaceTradersRest\Value\Ship;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
-use Phparch\SpaceTraders\Value\Route;
-use Phparch\SpaceTraders\Value\System;
-use Phparch\SpaceTraders\Value\Waypoint;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Value\Route;
+use Phparch\SpaceTradersRest\Value\System;
+use Phparch\SpaceTradersRest\Value\Waypoint;
 
 class Nav
 {

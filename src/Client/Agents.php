@@ -1,25 +1,28 @@
 <?php
 
-namespace Phparch\SpaceTraders\Client;
+namespace Phparch\SpaceTradersRest\Client;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
-use Phparch\SpaceTraders\APIException;
-use Phparch\SpaceTraders\Response;
+use Phparch\SpaceTradersRest\APIException;
+use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Response;
+use Phparch\SpaceTradersRest\Value\Agent;
+use Phparch\SpaceTradersRest\Value\Register;
 
-class Agents extends \Phparch\SpaceTraders\Client
+class Agents extends Client
 {
     /**
      * @throws GuzzleException
      * @throws APIException
      * @throws \JsonException
      */
-    public function myAgent(): \Phparch\SpaceTraders\Value\Agent
+    public function myAgent(): Agent
     {
         try {
             return $this->convertResponse(
                 $this->get('my/agent'),
-                \Phparch\SpaceTraders\Value\Agent::class
+                Agent::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -28,7 +31,7 @@ class Agents extends \Phparch\SpaceTraders\Client
     }
 
     #[\Deprecated]
-    public function register(string $symbol, string $faction): \Phparch\SpaceTraders\Value\Register
+    public function register(string $symbol, string $faction): Register
     {
         try {
             $response = $this->post(
@@ -42,7 +45,7 @@ class Agents extends \Phparch\SpaceTraders\Client
 
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Register::class
+                Register::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();

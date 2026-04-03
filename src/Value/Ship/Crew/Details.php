@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Crew;
+namespace Phparch\SpaceTradersRest\Value\Ship\Crew;
 
-use Phparch\SpaceTraders\Value\Ship;
+use Phparch\SpaceTradersRest\Value\Ship;
 
 class Details
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Ship\Mount;
+namespace Phparch\SpaceTradersRest\Value\Ship\Mount;
 
-use Phparch\SpaceTraders\Value\Ship;
+use Phparch\SpaceTradersRest\Value\Ship;
 
 class Deposit
 {

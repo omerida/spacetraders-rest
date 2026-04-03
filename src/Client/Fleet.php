@@ -1,15 +1,25 @@
 <?php
 
-namespace Phparch\SpaceTraders\Client;
+namespace Phparch\SpaceTradersRest\Client;
 
 use GuzzleHttp\Exception\ClientException;
-use Phparch\SpaceTraders\APIException;
-use Phparch\SpaceTraders\Client;
-use Phparch\SpaceTraders\Value\ScrapTransaction;
-use Phparch\SpaceTraders\Value\Ship;
-use Phparch\SpaceTraders\Value\Ship\CargoDetails;
-use Phparch\SpaceTraders\Value\Ship\CoolDown;
-use Phparch\SpaceTraders\Value\Waypoint;
+use Phparch\SpaceTradersRest\APIException;
+use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Value\Fleet\DockShip;
+use Phparch\SpaceTradersRest\Value\Fleet\ExtractResources;
+use Phparch\SpaceTradersRest\Value\Fleet\JettisonCargo;
+use Phparch\SpaceTradersRest\Value\Fleet\ListShips;
+use Phparch\SpaceTradersRest\Value\Fleet\NavigateShip;
+use Phparch\SpaceTradersRest\Value\Fleet\OrbitShip;
+use Phparch\SpaceTradersRest\Value\Fleet\PurchaseShip;
+use Phparch\SpaceTradersRest\Value\Fleet\RefuelShip;
+use Phparch\SpaceTradersRest\Value\Fleet\SellCargo;
+use Phparch\SpaceTradersRest\Value\Fleet\ShipMounts;
+use Phparch\SpaceTradersRest\Value\ScrapTransaction;
+use Phparch\SpaceTradersRest\Value\Ship;
+use Phparch\SpaceTradersRest\Value\Ship\CargoDetails;
+use Phparch\SpaceTradersRest\Value\Ship\CoolDown;
+use Phparch\SpaceTradersRest\Value\Waypoint;
 
 /**
  * For endpoints under "fleet" group.
@@ -17,12 +27,12 @@ use Phparch\SpaceTraders\Value\Waypoint;
  */
 class Fleet extends Client
 {
-    public function listShips(): \Phparch\SpaceTraders\Value\Fleet\ListShips
+    public function listShips(): ListShips
     {
         try {
             return $this->convertResponse(
                 $this->get('my/ships'),
-                \Phparch\SpaceTraders\Value\Fleet\ListShips::class
+                ListShips::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -30,7 +40,7 @@ class Fleet extends Client
         }
     }
 
-    public function dockShip(string $ship): \Phparch\SpaceTraders\Value\Fleet\DockShip
+    public function dockShip(string $ship): DockShip
     {
         try {
             $response = $this->post(
@@ -40,7 +50,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\DockShip::class
+                DockShip::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -51,7 +61,7 @@ class Fleet extends Client
     /**
      * @throws \RuntimeException
      */
-    public function extractShip(string $ship): \Phparch\SpaceTraders\Value\Fleet\ExtractResources
+    public function extractShip(string $ship): ExtractResources
     {
         try {
             $response = $this->post(
@@ -61,7 +71,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\ExtractResources::class
+                ExtractResources::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -108,12 +118,12 @@ class Fleet extends Client
         }
     }
 
-    public function getShipMounts(string $ship): \Phparch\SpaceTraders\Value\Fleet\ShipMounts
+    public function getShipMounts(string $ship): ShipMounts
     {
         try {
             return $this->convertResponse(
                 $this->get('my/ships/' . $ship . '/mounts'),
-                \Phparch\SpaceTraders\Value\Fleet\ShipMounts::class
+                ShipMounts::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -137,7 +147,7 @@ class Fleet extends Client
     public function navigateShip(
         string $ship,
         Waypoint\Symbol $waypointSymbol
-    ): \Phparch\SpaceTraders\Value\Fleet\NavigateShip {
+    ): NavigateShip {
         try {
             $response = $this->post(
                 'my/ships/' . $ship . '/navigate',
@@ -148,7 +158,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\NavigateShip::class
+                NavigateShip::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -156,7 +166,7 @@ class Fleet extends Client
         }
     }
 
-    public function orbitShip(string $ship): \Phparch\SpaceTraders\Value\Fleet\OrbitShip
+    public function orbitShip(string $ship): OrbitShip
     {
         try {
             $response = $this->post(
@@ -166,7 +176,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\OrbitShip::class
+                OrbitShip::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -197,7 +207,7 @@ class Fleet extends Client
     public function purchaseShip(
         Waypoint\Symbol $waypoint,
         string $type
-    ): \Phparch\SpaceTraders\Value\Fleet\PurchaseShip {
+    ): PurchaseShip {
         try {
             $response = $this->post(
                 'my/ships',
@@ -209,7 +219,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\PurchaseShip::class
+                PurchaseShip::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -221,7 +231,7 @@ class Fleet extends Client
         string $ship,
         ?int $units = null,
         bool $fromCargo = false
-    ): \Phparch\SpaceTraders\Value\Fleet\RefuelShip {
+    ): RefuelShip {
         $data = [];
         try {
             $data['fromCargo'] = $fromCargo;
@@ -235,7 +245,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\RefuelShip::class
+                RefuelShip::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -247,7 +257,7 @@ class Fleet extends Client
         string $ship,
         string $cargo,
         ?int $units = null,
-    ): \Phparch\SpaceTraders\Value\Fleet\SellCargo {
+    ): SellCargo {
         $data = [];
         try {
             $data['symbol'] = $cargo;
@@ -260,7 +270,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\SellCargo::class
+                SellCargo::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
@@ -272,7 +282,7 @@ class Fleet extends Client
         string $ship,
         string $cargo,
         ?int $units = null,
-    ): \Phparch\SpaceTraders\Value\Fleet\JettisonCargo {
+    ): JettisonCargo {
         $data = [];
         try {
             $data['symbol'] = $cargo;
@@ -285,7 +295,7 @@ class Fleet extends Client
             );
             return $this->convertResponse(
                 $response,
-                \Phparch\SpaceTraders\Value\Fleet\JettisonCargo::class
+                JettisonCargo::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();

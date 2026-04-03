@@ -1,15 +1,15 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value;
+namespace Phparch\SpaceTradersRest\Value;
 
-use Phparch\SpaceTraders\Trait\MapFromArray;
+use Phparch\SpaceTradersRest\Trait\MapFromArray;
 
 class Contracts
 {
     use MapFromArray;
 
     public function __construct(
-        /** @var list<\Phparch\SpaceTraders\Value\Contract> */
+        /** @var list<\Phparch\SpaceTradersRest\Value\Contract> */
         public array $contracts = [],
     ) {
     }

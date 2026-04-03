@@ -1,10 +1,10 @@
 <?php
 
-namespace Phparch\SpaceTraders\Value\Market;
+namespace Phparch\SpaceTradersRest\Value\Market;
 
-use Phparch\SpaceTraders\Value\Goods;
-use Phparch\SpaceTraders\Value\TransactionType;
-use Phparch\SpaceTraders\Value\Waypoint;
+use Phparch\SpaceTradersRest\Value\Goods;
+use Phparch\SpaceTradersRest\Value\TransactionType;
+use Phparch\SpaceTradersRest\Value\Waypoint;
 
 class Transaction
 {
