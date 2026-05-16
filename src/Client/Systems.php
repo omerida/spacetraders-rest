@@ -9,32 +9,26 @@ class Systems extends \Phparch\SpaceTradersRest\Client
 {
     public function market(string $system, string $waypoint): Value\Market
     {
-        $response = $this->get(
-            sprintf('systems/%s/waypoints/%s/market', $system, $waypoint)
-        );
-
-        return $this->convertResponse(
-            $response,
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/market', $system, $waypoint),
             responseClass: Value\Market::class
         );
     }
 
     public function shipyard(string $system, string $waypoint): Value\Shipyard
     {
-        $response = $this->get(
-            sprintf('systems/%s/waypoints/%s/shipyard', $system, $waypoint)
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/shipyard', $system, $waypoint),
+            responseClass: Value\Shipyard::class
         );
-
-        return $this->convertResponse($response, Value\Shipyard::class);
     }
 
     public function systemLocation(string $system, string $waypoint): Value\Waypoint
     {
-        $response = $this->get(
-            sprintf('systems/%s/waypoints/%s', $system, $waypoint)
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s', $system, $waypoint),
+            Value\Waypoint::class
         );
-
-        return $this->convertResponse($response, Value\Waypoint::class);
     }
 
     /**
