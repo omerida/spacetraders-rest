@@ -3,12 +3,14 @@
 namespace Phparch\SpaceTradersRest\Client;
 
 use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Value\CreateChart;
 use Phparch\SpaceTradersRest\Value\Fleet\ExtractResources;
 use Phparch\SpaceTradersRest\Value\Fleet\JettisonCargo;
 use Phparch\SpaceTradersRest\Value\Fleet\RefuelShip;
 use Phparch\SpaceTradersRest\Value\Fleet\SellCargo;
+use Phparch\SpaceTradersRest\Value\Fleet\CreateSurvey;
 use Phparch\SpaceTradersRest\Value\Goods;
-use Phparch\SpaceTradersRest\Value\CreateChart;
+use Phparch\SpaceTradersRest\Value\Survey;
 
 class ShipActions extends Client
 {
@@ -19,13 +21,18 @@ class ShipActions extends Client
         );
     }
 
-    /**
-     * @throws \RuntimeException
-     */
     public function extractResources(string $ship): ExtractResources
     {
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/extract',
+            responseClass: ExtractResources::class
+        );
+    }
+
+    public function extractResourcesWithContract(string $ship, Survey $survey): ExtractResources
+    {
+        return $this->doPostAndConvert(
+            path: 'my/ships/' . $ship . '/extract/survey',
             responseClass: ExtractResources::class
         );
     }
@@ -85,6 +92,13 @@ class ShipActions extends Client
             path: 'my/ships/' . $ship . '/sell',
             data: $data,
             responseClass: SellCargo::class
+        );
+    }
+
+    public function createSurvey(string $ship): CreateSurvey {
+        return $this->doPostAndConvert(
+            path: 'my/ships/' . $ship . '/survey',
+            responseClass: CreateSurvey::class,
         );
     }
 }
