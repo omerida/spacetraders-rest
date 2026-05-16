@@ -2,39 +2,100 @@
 
 namespace Phparch\SpaceTradersRest\Client;
 
-use Phparch\SpaceTradersRest\Response;
+use GuzzleHttp\Exception\ClientException;
+use Phparch\SpaceTradersRest\APIException;
 use Phparch\SpaceTradersRest\Value;
 
 class Systems extends \Phparch\SpaceTradersRest\Client
 {
+    public function construction(string $system, string $waypoint): Value\Construction
+    {
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/construction', $system, $waypoint),
+            Value\Construction::class
+        );
+    }
+
+    public function jumpGate(string $system, string $waypoint): Value\JumpGate
+    {
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/jump-gate', $system, $waypoint),
+            Value\JumpGate::class
+        );
+    }
+
     public function market(string $system, string $waypoint): Value\Market
     {
-        $response = $this->get(
-            sprintf('systems/%s/waypoints/%s/market', $system, $waypoint)
-        );
-
-        return $this->convertResponse(
-            $response,
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/market', $system, $waypoint),
             responseClass: Value\Market::class
         );
     }
 
     public function shipyard(string $system, string $waypoint): Value\Shipyard
     {
-        $response = $this->get(
-            sprintf('systems/%s/waypoints/%s/shipyard', $system, $waypoint)
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/shipyard', $system, $waypoint),
+            responseClass: Value\Shipyard::class
         );
-
-        return $this->convertResponse($response, Value\Shipyard::class);
     }
+
+    public function supplyConstructionSite(
+        string $system,
+        string $waypoint,
+        string $shipSymbol,
+        Value\Goods\Symbol $tradeSymbol,
+        int $units,
+    ): Value\SuppliedConstructionSite {
+        $url = 'systems/' . $system
+        . '/waypoints/' . $waypoint
+        . '/construction/supply';
+
+        $body = [
+            'shipSymbol' => $shipSymbol,
+            'tradeSymbol' => $tradeSymbol,
+            'units' => $units,
+        ];
+
+        return $this->convertResponse(
+            $this->post($url, $body),
+            Value\SuppliedConstructionSite::class
+        );
+    }
+
+    public function system(string $systemSymbol): Value\System {
+        return $this->doGetAndConvert(
+            'systems/' . $systemSymbol,
+            responseClass: Value\System::class
+        );
+    }
+
+    public function systems(): Value\Systems {
+        $default = [
+            'page' => 1,
+            'limit' => 20,
+        ];
+
+        try {
+            $url  = 'systems?' . http_build_query($default);
+            $response = $this->getAllPages($url, limit: $default['limit']);
+            return $this->convertResponse(
+                $response,
+                Value\Systems::class
+            );
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            throw new APIException($body);
+        }
+    }
+
 
     public function systemLocation(string $system, string $waypoint): Value\Waypoint
     {
-        $response = $this->get(
-            sprintf('systems/%s/waypoints/%s', $system, $waypoint)
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s', $system, $waypoint),
+            Value\Waypoint::class
         );
-
-        return $this->convertResponse($response, Value\Waypoint::class);
     }
 
     /**
@@ -52,12 +113,17 @@ class Systems extends \Phparch\SpaceTradersRest\Client
             'limit' => 20,
         ];
 
-        $queryParams = array_merge($default, $queryParams);
-        $url = sprintf('systems/%s/waypoints', $system);
-        if ($queryParams) {
-            $url .= '?' . http_build_query($queryParams);
+        try {
+            $queryParams = array_merge($default, $queryParams);
+            $url = sprintf('systems/%s/waypoints', $system);
+            if ($queryParams) {
+                $url .= '?' . http_build_query($queryParams);
+            }
+            $response = $this->getAllPages($url, limit: $queryParams['limit']);
+            return $this->convertResponse($response, Value\Waypoints::class);
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            throw new APIException($body);
         }
-        $response = $this->getAllPages($url, limit: $queryParams['limit']);
-        return $this->convertResponse($response, Value\Waypoints::class);
     }
 }
