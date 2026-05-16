@@ -49,6 +49,12 @@ class ShipTravel extends Client
         );
     }
 
+    public function getNav(string $ship): Ship\Nav {
+        return $this->doGetAndConvert(
+            path: 'my/ships/' . $ship . '/nav',
+            responseClass: Ship\Nav::class
+        );
+    }
     /**
      * @throws GuzzleException
      * @throws APIException
@@ -75,5 +81,13 @@ class ShipTravel extends Client
             $body = $e->getResponse()->getBody()->getContents();
             throw new APIException($body);
         }
+    }
+
+    public function warp(string $ship): Fleet\WarpShip
+    {
+        return $this->doPostAndConvert(
+            path: 'my/ships/' . $ship . '/warp',
+            responseClass: Fleet\WarpShip::class
+        );
     }
 }
