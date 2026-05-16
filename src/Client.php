@@ -2,6 +2,8 @@
 
 namespace Phparch\SpaceTradersRest;
 
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
@@ -194,5 +196,28 @@ abstract class Client
         }
 
         throw new \RuntimeException("Could not parse JSON Response");
+    }
+
+    /**
+     * @template T of object
+     * @param class-string<T> $responseClass
+     * @return T
+     * @throws GuzzleException
+     * @throws APIException
+     * @throws \JsonException
+     */
+    protected function doGetAndConvert(
+        string $path,
+        string $responseClass
+    ): mixed {
+        try {
+            return $this->convertResponse(
+                $this->get($path),
+                $responseClass
+            );
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            throw new APIException($body);
+        }
     }
 }
