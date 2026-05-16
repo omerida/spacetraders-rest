@@ -225,6 +225,7 @@ abstract class Client
     /**
      * @template T of object
      * @param class-string<T> $responseClass
+     * @param array<string, mixed> $data
      * @return T
      * @throws GuzzleException
      * @throws APIException

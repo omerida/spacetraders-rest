@@ -16,10 +16,17 @@ use Phparch\SpaceTradersRest\Value\Fleet\SellCargo;
 use Phparch\SpaceTradersRest\Value\Goods;
 use Phparch\SpaceTradersRest\Value\Ship\NavPatch;
 use Phparch\SpaceTradersRest\Value\Waypoint;
+use Phparch\SpaceTradersRest\Value\CreateChart;
 
-
-Class ShipCommands extends Client
+class ShipCommands extends Client
 {
+    public function createChart(string $ship): CreateChart {
+        return $this->doPostAndConvert(
+            path: 'my/ships/' . $ship . '/chart',
+            responseClass: CreateChart::class,
+        );
+    }
+
     public function dockShip(string $ship): DockShip
     {
         return $this->doPostAndConvert(
@@ -124,11 +131,11 @@ Class ShipCommands extends Client
      */
     public function setNavMode(string $ship, string $flightMode): NavPatch
     {
-                try {
+        try {
             $response = $this->patch(
                 sprintf('my/ships/%s/nav', $ship),
                 data: [
-                    'flightMode' => (string) $flightMode,
+                'flightMode' => (string) $flightMode,
                 ],
                 authenticate: true
             );
