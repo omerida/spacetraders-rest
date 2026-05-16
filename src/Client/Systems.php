@@ -16,6 +16,14 @@ class Systems extends \Phparch\SpaceTradersRest\Client
         );
     }
 
+    public function jumpGate(string $system, string $waypoint): Value\JumpGate
+    {
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/jump-gate', $system, $waypoint),
+            Value\JumpGate::class
+        );
+    }
+
     public function market(string $system, string $waypoint): Value\Market
     {
         return $this->doGetAndConvert(
@@ -29,6 +37,29 @@ class Systems extends \Phparch\SpaceTradersRest\Client
         return $this->doGetAndConvert(
             sprintf('systems/%s/waypoints/%s/shipyard', $system, $waypoint),
             responseClass: Value\Shipyard::class
+        );
+    }
+
+    public function supplyConstructionSite(
+        string $system,
+        string $waypoint,
+        string $shipSymbol,
+        Value\Goods\Symbol $tradeSymbol,
+        int $units,
+    ): Value\SuppliedConstructionSite {
+        $url = 'systems/' . $system
+        . '/waypoints/' . $waypoint
+        . '/construction/supply';
+
+        $body = [
+            'shipSymbol' => $shipSymbol,
+            'tradeSymbol' => $tradeSymbol,
+            'units' => $units,
+        ];
+
+        return $this->convertResponse(
+            $this->post($url, $body),
+            Value\SuppliedConstructionSite::class
         );
     }
 
