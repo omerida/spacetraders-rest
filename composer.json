@@ -62,7 +62,7 @@
   "scripts": {
     "check-code": ["@phpcs",  "@phpstan", "@phparkitect"],
     "fix-code": ["@phpcbf"],
-    "phpmd": "vendor/bin/phpmd --ignore-violations-on-exit --ignore-errors-on-exit src text phpmd.xml" ,
+    "phpmd": "vendor/bin/phpmd analyze --ignore-violations-on-exit --ignore-errors-on-exit --ruleset=phpmd.xml src" ,
     "phpstan": "vendor/bin/phpstan --memory-limit=1G",
     "phpcs": "vendor/bin/phpcs -s",
     "phpcbf": "vendor/bin/phpcbf",

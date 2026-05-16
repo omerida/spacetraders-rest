@@ -6,33 +6,45 @@
                        http://phpmd.org/xml/ruleset_xml_schema_1.0.0.xsd"
          xsi:noNamespaceSchemaLocation="
                        http://phpmd.org/xml/ruleset_xml_schema_1.0.0.xsd">
-  <description>
-    Custom rules for SpaceTraders project
-  </description>
+    <description>
+        Custom rules for SpaceTraders project
+    </description>
 
-  <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
-    <properties>
-      <property name="minimum" value="15"/>
-    </properties>
-  </rule>
+    <exclude-pattern>*/src/Rector</exclude-pattern>
 
-  <rule ref="rulesets/cleancode.xml/StaticAccess">
-    <properties>
-      <property name="exceptions">
-        <value>
-            \Phparch\SpaceTraders\ServiceContainer,
-            \CuyZ\Valinor\Mapper\Source\Source,
-            \CuyZ\Valinor\Mapper\Tree\Message\Messages
-        </value>
-      </property>
-    </properties>
-  </rule>
-  <rule ref="rulesets/controversial.xml" />
-  <rule ref="rulesets/design.xml" />
-  <rule ref="rulesets/naming.xml/ShortVariable">
-    <properties>
-      <property name="exceptions" value="id,x,y" />
-    </properties>
-  </rule>
-  <rule ref="rulesets/unusedcode.xml" />
+
+    <rule ref="rulesets/cleancode.xml/StaticAccess">
+        <properties>
+            <property name="exceptions">
+                <value>
+                    \Phparch\SpaceTraders\ServiceContainer,
+                    \CuyZ\Valinor\Mapper\Source\Source,
+                    \CuyZ\Valinor\Mapper\Tree\Message\Messages
+                </value>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="rulesets/controversial.xml"/>
+    <rule ref="rulesets/design.xml">
+      <exclude name="CouplingBetweenObjects"/>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="exceptions" value="id,x,y"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/unusedcode.xml"/>
+
+    <rule ref="rulesets/design.xml/CouplingBetweenObjects">
+        <properties>
+            <property name="maximum" value="20"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="15"/>
+        </properties>
+    </rule>
+
 </ruleset>

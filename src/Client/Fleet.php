@@ -40,45 +40,6 @@ class Fleet extends Client
         }
     }
 
-    public function dockShip(string $ship): DockShip
-    {
-        try {
-            $response = $this->post(
-                'my/ships/' . $ship . '/dock',
-                data: [],
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                DockShip::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
-    /**
-     * @throws \RuntimeException
-     */
-    public function extractShip(string $ship): ExtractResources
-    {
-        try {
-            $response = $this->post(
-                'my/ships/' . $ship . '/extract',
-                data: [],
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                ExtractResources::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
     public function getShip(string $ship): Ship
     {
         try {
@@ -144,66 +105,6 @@ class Fleet extends Client
         }
     }
 
-    public function navigateShip(
-        string $ship,
-        Waypoint\Symbol $waypointSymbol
-    ): NavigateShip {
-        try {
-            $response = $this->post(
-                'my/ships/' . $ship . '/navigate',
-                data: [
-                    'waypointSymbol' => (string) $waypointSymbol,
-                ],
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                NavigateShip::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
-    public function orbitShip(string $ship): OrbitShip
-    {
-        try {
-            $response = $this->post(
-                'my/ships/' . $ship . '/orbit',
-                data: [],
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                OrbitShip::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
-    public function setNavMode(string $ship, string $flightMode): Ship\NavPatch
-    {
-        try {
-            $response = $this->patch(
-                sprintf('my/ships/%s/nav', $ship),
-                data: [
-                    'flightMode' => (string) $flightMode,
-                ],
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                Ship\NavPatch::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
     public function purchaseShip(
         Waypoint\Symbol $waypoint,
         string $type
@@ -220,82 +121,6 @@ class Fleet extends Client
             return $this->convertResponse(
                 $response,
                 PurchaseShip::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
-    public function refuelShip(
-        string $ship,
-        ?int $units = null,
-        bool $fromCargo = false
-    ): RefuelShip {
-        $data = [];
-        try {
-            $data['fromCargo'] = $fromCargo;
-            if ($units > 0) {
-                $data['units'] = $units;
-            }
-            $response = $this->post(
-                'my/ships/' . $ship . '/refuel',
-                data: $data,
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                RefuelShip::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
-    public function sellCargo(
-        string $ship,
-        string $cargo,
-        ?int $units = null,
-    ): SellCargo {
-        $data = [];
-        try {
-            $data['symbol'] = $cargo;
-            $data['units'] = $units;
-
-            $response = $this->post(
-                'my/ships/' . $ship . '/sell',
-                data: $data,
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                SellCargo::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
-    }
-
-    public function jettisonCargo(
-        string $ship,
-        string $cargo,
-        ?int $units = null,
-    ): JettisonCargo {
-        $data = [];
-        try {
-            $data['symbol'] = $cargo;
-            $data['units'] = $units;
-
-            $response = $this->post(
-                'my/ships/' . $ship . '/jettison',
-                data: $data,
-                authenticate: true
-            );
-            return $this->convertResponse(
-                $response,
-                JettisonCargo::class
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
