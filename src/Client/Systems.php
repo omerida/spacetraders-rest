@@ -2,11 +2,20 @@
 
 namespace Phparch\SpaceTradersRest\Client;
 
-use Phparch\SpaceTradersRest\Response;
+use GuzzleHttp\Exception\ClientException;
+use Phparch\SpaceTradersRest\APIException;
 use Phparch\SpaceTradersRest\Value;
 
 class Systems extends \Phparch\SpaceTradersRest\Client
 {
+    public function construction(string $system, string $waypoint): Value\Construction
+    {
+        return $this->doGetAndConvert(
+            sprintf('systems/%s/waypoints/%s/construction', $system, $waypoint),
+            Value\Construction::class
+        );
+    }
+
     public function market(string $system, string $waypoint): Value\Market
     {
         return $this->doGetAndConvert(
@@ -22,6 +31,33 @@ class Systems extends \Phparch\SpaceTradersRest\Client
             responseClass: Value\Shipyard::class
         );
     }
+
+    public function system(string $systemSymbol): Value\System {
+        return $this->doGetAndConvert(
+            'systems/' . $systemSymbol,
+            responseClass: Value\System::class
+        );
+    }
+
+    public function systems(): Value\Systems {
+        $default = [
+            'page' => 1,
+            'limit' => 20,
+        ];
+
+        try {
+            $url  = 'systems?' . http_build_query($default);
+            $response = $this->getAllPages($url, limit: $default['limit']);
+            return $this->convertResponse(
+                $response,
+                Value\Systems::class
+            );
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            throw new APIException($body);
+        }
+    }
+
 
     public function systemLocation(string $system, string $waypoint): Value\Waypoint
     {
@@ -46,12 +82,17 @@ class Systems extends \Phparch\SpaceTradersRest\Client
             'limit' => 20,
         ];
 
-        $queryParams = array_merge($default, $queryParams);
-        $url = sprintf('systems/%s/waypoints', $system);
-        if ($queryParams) {
-            $url .= '?' . http_build_query($queryParams);
+        try {
+            $queryParams = array_merge($default, $queryParams);
+            $url = sprintf('systems/%s/waypoints', $system);
+            if ($queryParams) {
+                $url .= '?' . http_build_query($queryParams);
+            }
+            $response = $this->getAllPages($url, limit: $queryParams['limit']);
+            return $this->convertResponse($response, Value\Waypoints::class);
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            throw new APIException($body);
         }
-        $response = $this->getAllPages($url, limit: $queryParams['limit']);
-        return $this->convertResponse($response, Value\Waypoints::class);
     }
 }
