@@ -29,10 +29,18 @@ class ShipActions extends Client
         );
     }
 
-    public function extractResourcesWithContract(string $ship, Survey $survey): ExtractResources
+    public function extractResourcesWithSurvey(string $ship, Survey $survey): ExtractResources
     {
+        $data = $survey->toArray();
+        if (!is_array($data)) {
+            throw new \RuntimeException('Survey data should be an array');
+        }
+
+        /** @var array<string, mixed> $normalizedData */
+        $normalizedData = $data;
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/extract/survey',
+            data: $normalizedData,
             responseClass: ExtractResources::class
         );
     }
