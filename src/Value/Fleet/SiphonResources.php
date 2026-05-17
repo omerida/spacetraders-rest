@@ -8,18 +8,16 @@ use Phparch\SpaceTradersRest\Value\Ship\CoolDown;
 use Phparch\SpaceTradersRest\Value\Ship\Event;
 use Phparch\SpaceTradersRest\Value\Ship\Extraction\Details;
 
-class ExtractResources
+class SiphonResources
 {
     use MapFromArray;
 
     public function __construct(
+        public readonly Details $siphon,
         public readonly CoolDown $cooldown,
         public readonly CargoDetails $cargo,
-        public readonly Details $extraction,
         /** @var Event[] */
         public readonly array $events,
-        /** @var array<array<string, string>> */
-        public readonly array $modifiers = [],
     ) {
     }
 }

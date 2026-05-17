@@ -2,18 +2,22 @@
 
 namespace Phparch\SpaceTradersRest\Client;
 
+use CuyZ\Valinor\Mapper\MappingError;
+use GuzzleHttp\Exception\GuzzleException;
+use Phparch\SpaceTradersRest\APIException;
 use Phparch\SpaceTradersRest\Client;
 use Phparch\SpaceTradersRest\Value\CreateChart;
-use Phparch\SpaceTradersRest\Value\Fleet\ExtractResources;
-use Phparch\SpaceTradersRest\Value\Fleet\JettisonCargo;
-use Phparch\SpaceTradersRest\Value\Fleet\RefuelShip;
-use Phparch\SpaceTradersRest\Value\Fleet\SellCargo;
-use Phparch\SpaceTradersRest\Value\Fleet\CreateSurvey;
+use Phparch\SpaceTradersRest\Value\Fleet;
 use Phparch\SpaceTradersRest\Value\Goods;
 use Phparch\SpaceTradersRest\Value\Survey;
 
 class ShipActions extends Client
 {
+    /**
+     * @throws GuzzleException
+     * @throws \JsonException
+     * @throws APIException
+     */
     public function createChart(string $ship): CreateChart {
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/chart',
@@ -21,15 +25,29 @@ class ShipActions extends Client
         );
     }
 
-    public function extractResources(string $ship): ExtractResources
+    /**
+     * @throws GuzzleException
+     * @throws \JsonException
+     * @throws APIException
+     */
+    public function extractResources(string $ship): Fleet\ExtractResources
     {
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/extract',
-            responseClass: ExtractResources::class
+            responseClass: Fleet\ExtractResources::class
         );
     }
 
-    public function extractResourcesWithSurvey(string $ship, Survey $survey): ExtractResources
+    /**
+     * @throws GuzzleException
+     * @throws MappingError
+     * @throws APIException
+     * @throws \JsonException
+     */
+    public function extractResourcesWithSurvey(
+        string $ship,
+        Survey $survey
+    ): Fleet\ExtractResources
     {
         $data = $survey->toArray();
         if (!is_array($data)) {
@@ -40,8 +58,8 @@ class ShipActions extends Client
         $normalizedData = $data;
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/extract/survey',
-            data: $normalizedData,
-            responseClass: ExtractResources::class
+            responseClass: Fleet\ExtractResources::class,
+            data: $normalizedData
         );
     }
 
@@ -49,7 +67,7 @@ class ShipActions extends Client
         string $ship,
         string $cargo,
         ?int $units = null,
-    ): JettisonCargo
+    ): Fleet\JettisonCargo
     {
         $data = [];
         // Validate trade good
@@ -60,8 +78,8 @@ class ShipActions extends Client
 
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/jettison',
-            data: $data,
-            responseClass: JettisonCargo::class
+            responseClass: Fleet\JettisonCargo::class,
+            data: $data
         );
     }
 
@@ -69,7 +87,7 @@ class ShipActions extends Client
         string $ship,
         ?int $units = null,
         bool $fromCargo = false
-    ): RefuelShip {
+    ): Fleet\RefuelShip {
         $data = [];
         $data['fromCargo'] = $fromCargo;
         if ($units > 0) {
@@ -78,8 +96,8 @@ class ShipActions extends Client
 
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/refuel',
+            responseClass: Fleet\RefuelShip::class,
             data: $data,
-            responseClass: RefuelShip::class
         );
     }
 
@@ -87,7 +105,7 @@ class ShipActions extends Client
         string $ship,
         string $cargo,
         ?int $units = null,
-    ): SellCargo
+    ): Fleet\SellCargo
     {
         $data = [];
         // Validate trade good
@@ -98,15 +116,33 @@ class ShipActions extends Client
 
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/sell',
-            data: $data,
-            responseClass: SellCargo::class
+            responseClass: Fleet\SellCargo::class,
+            data: $data
         );
     }
 
-    public function createSurvey(string $ship): CreateSurvey {
+    /**
+     * @throws GuzzleException
+     * @throws \JsonException
+     * @throws APIException
+     */
+    public function createSurvey(string $ship): Fleet\CreateSurvey {
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/survey',
-            responseClass: CreateSurvey::class,
+            responseClass: Fleet\CreateSurvey::class,
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws APIException
+     * @throws \JsonException
+     */
+    public function siphonResources(string $ship): Fleet\SiphonResources
+    {
+        return $this->doPostAndConvert(
+            path: 'my/ships/' . $ship . '/siphon',
+            responseClass: Fleet\SiphonResources::class
         );
     }
 }
