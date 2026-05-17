@@ -5,6 +5,7 @@ namespace Phparch\SpaceTradersRest;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
+use Phparch\SpaceTradersRest\Value\Fleet\DockShip;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -209,11 +210,42 @@ abstract class Client
     protected function doGetAndConvert(
         string $path,
         string $responseClass
-    ): mixed {
+    ) {
         try {
             return $this->convertResponse(
                 $this->get($path),
                 $responseClass
+            );
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            throw new APIException($body);
+        }
+    }
+
+    /**
+     * @template T of object
+     * @param class-string<T> $responseClass
+     * @param array<string, mixed> $data
+     * @return T
+     * @throws GuzzleException
+     * @throws APIException
+     * @throws \JsonException
+     */
+    protected function doPostAndConvert(
+        string $path,
+        string $responseClass,
+        array $data = [],
+        bool $authenticate = true
+    ) {
+        try {
+            $response = $this->post(
+                url: $path,
+                data: $data,
+                authenticate: $authenticate
+            );
+            return $this->convertResponse(
+                response: $response,
+                responseClass: $responseClass,
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
