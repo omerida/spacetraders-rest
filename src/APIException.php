@@ -21,6 +21,6 @@ class APIException extends \Exception
         $json = json_decode($message, true, 512, JSON_THROW_ON_ERROR);
         parent::__construct($json['error']['message'], (int) $json['error']['code'], $previous);
 
-        $this->data = $json['error']['data'];
+        $this->data = $json['error']['data'] ?? [];
     }
 }
