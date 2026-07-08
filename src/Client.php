@@ -231,7 +231,6 @@ abstract class Client
             }
 
             throw $e;
-
         }
     }
 
