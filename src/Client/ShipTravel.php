@@ -6,6 +6,8 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Phparch\SpaceTradersRest\APIException;
 use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Exception\APIAuthentication;
+use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value\Fleet;
 use Phparch\SpaceTradersRest\Value\Ship;
 use Phparch\SpaceTradersRest\Value\Waypoint;
@@ -55,10 +57,12 @@ class ShipTravel extends Client
             responseClass: Ship\Nav::class
         );
     }
+
     /**
      * @throws GuzzleException
-     * @throws APIException
      * @throws \JsonException
+     * @throws APIFailure
+     * @throws APIAuthentication
      */
     public function setNavMode(
         string $ship,
@@ -79,7 +83,15 @@ class ShipTravel extends Client
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
+            if ($e->getCode() >= 500) {
+                throw new APIFailure($body);
+            }
+
+            if ($e->getCode() >= 400) {
+                throw new APIAuthentication($body);
+            }
+
+            throw $e;
         }
     }
 

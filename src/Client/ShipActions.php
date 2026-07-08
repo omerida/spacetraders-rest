@@ -4,7 +4,8 @@ namespace Phparch\SpaceTradersRest\Client;
 
 use CuyZ\Valinor\Mapper\MappingError;
 use GuzzleHttp\Exception\GuzzleException;
-use Phparch\SpaceTradersRest\APIException;
+use Phparch\SpaceTradersRest\Exception\APIAuthentication;
+use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Client;
 use Phparch\SpaceTradersRest\Value\CreateChart;
 use Phparch\SpaceTradersRest\Value\Fleet;
@@ -16,8 +17,8 @@ class ShipActions extends Client
     /**
      * @throws GuzzleException
      * @throws \JsonException
-     * @throws APIException
-     */
+     * @throws APIFailure|APIAuthentication
+ */
     public function createChart(string $ship): CreateChart {
         return $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/chart',
@@ -26,9 +27,10 @@ class ShipActions extends Client
     }
 
     /**
+     * @throws APIAuthentication
+     * @throws APIFailure
      * @throws GuzzleException
      * @throws \JsonException
-     * @throws APIException
      */
     public function extractResources(string $ship): Fleet\ExtractResources
     {
@@ -39,9 +41,10 @@ class ShipActions extends Client
     }
 
     /**
+     * @throws APIAuthentication
+     * @throws APIFailure
      * @throws GuzzleException
      * @throws MappingError
-     * @throws APIException
      * @throws \JsonException
      */
     public function extractResourcesWithSurvey(
@@ -63,6 +66,12 @@ class ShipActions extends Client
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function jettisonCargo(
         string $ship,
         string $cargo,
@@ -83,6 +92,12 @@ class ShipActions extends Client
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function refuelShip(
         string $ship,
         ?int $units = null,
@@ -101,6 +116,12 @@ class ShipActions extends Client
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function sellCargo(
         string $ship,
         string $cargo,
@@ -124,7 +145,7 @@ class ShipActions extends Client
     /**
      * @throws GuzzleException
      * @throws \JsonException
-     * @throws APIException
+     * @throws APIFailure|APIAuthentication
      */
     public function createSurvey(string $ship): Fleet\CreateSurvey {
         return $this->doPostAndConvert(
@@ -135,7 +156,7 @@ class ShipActions extends Client
 
     /**
      * @throws GuzzleException
-     * @throws APIException
+     * @throws APIFailure|APIAuthentication
      * @throws \JsonException
      */
     public function siphonResources(string $ship): Fleet\SiphonResources

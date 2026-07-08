@@ -1,8 +1,8 @@
 <?php
 
-namespace Phparch\SpaceTradersRest;
+namespace Phparch\SpaceTradersRest\Exception;
 
-class APIException extends \Exception
+class APIAuthentication extends \Exception
 {
     /** @var array<string, mixed> */
     public readonly array $data;

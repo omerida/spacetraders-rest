@@ -5,6 +5,8 @@ namespace Phparch\SpaceTradersRest;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
+use Phparch\SpaceTradersRest\Exception\APIAuthentication;
+use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value\Fleet\DockShip;
 use Psr\Http\Message\ResponseInterface;
 
@@ -204,8 +206,9 @@ abstract class Client
      * @param class-string<T> $responseClass
      * @return T
      * @throws GuzzleException
-     * @throws APIException
+     * @throws APIFailure
      * @throws \JsonException
+     * @throws APIAuthentication
      */
     protected function doGetAndConvert(
         string $path,
@@ -218,7 +221,17 @@ abstract class Client
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
+
+            if ($e->getCode() >= 500) {
+                throw new APIFailure($body);
+            }
+
+            if ($e->getCode() >= 400) {
+                throw new APIAuthentication($body);
+            }
+
+            throw $e;
+
         }
     }
 
@@ -228,8 +241,9 @@ abstract class Client
      * @param array<string, mixed> $data
      * @return T
      * @throws GuzzleException
-     * @throws APIException
      * @throws \JsonException
+     * @throws APIFailure
+     * @throws APIAuthentication
      */
     protected function doPostAndConvert(
         string $path,
@@ -249,7 +263,15 @@ abstract class Client
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
+            if ($e->getCode() >= 500) {
+                throw new APIFailure($body);
+            }
+
+            if ($e->getCode() >= 400) {
+                throw new APIAuthentication($body);
+            }
+
+            throw $e;
         }
     }
 }

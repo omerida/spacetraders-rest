@@ -4,6 +4,8 @@ namespace Phparch\SpaceTradersRest\Client;
 
 use GuzzleHttp\Exception\ClientException;
 use Phparch\SpaceTradersRest\APIException;
+use Phparch\SpaceTradersRest\Exception\APIAuthentication;
+use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value;
 
 class Systems extends \Phparch\SpaceTradersRest\Client
@@ -70,6 +72,11 @@ class Systems extends \Phparch\SpaceTradersRest\Client
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws \JsonException
+     * @throws APIFailure
+     */
     public function systems(): Value\Systems {
         $default = [
             'page' => 1,
@@ -85,7 +92,15 @@ class Systems extends \Phparch\SpaceTradersRest\Client
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
+            if ($e->getCode() >= 500) {
+                throw new APIFailure($body);
+            }
+
+            if ($e->getCode() >= 400) {
+                throw new APIAuthentication($body);
+            }
+
+            throw $e;
         }
     }
 
@@ -105,6 +120,8 @@ class Systems extends \Phparch\SpaceTradersRest\Client
      *     'traits'?: string,
      *     'type'?:value-of<\Phparch\SpaceTradersRest\Value\Waypoint\Type>
      * } $queryParams
+     * @throws APIFailure
+     * @throws APIAuthentication
      */
     public function waypoints(string $system, array $queryParams = []): Value\Waypoints
     {
@@ -123,7 +140,15 @@ class Systems extends \Phparch\SpaceTradersRest\Client
             return $this->convertResponse($response, Value\Waypoints::class);
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
+            if ($e->getCode() >= 500) {
+                throw new APIFailure($body);
+            }
+
+            if ($e->getCode() >= 400) {
+                throw new APIAuthentication($body);
+            }
+
+            throw $e;
         }
     }
 }

@@ -2,37 +2,55 @@
 
 namespace Phparch\SpaceTradersRest\Client;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Phparch\SpaceTradersRest\APIException;
 use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Exception\APIAuthentication;
+use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value;
 use Phparch\SpaceTradersRest\Value\Contract;
 
 class Contracts extends Client
 {
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function myContracts(): Value\Contracts
     {
-        return $this->convertResponse(
-            $this->get('my/contracts'),
-            Value\Contracts::class
+        return $this->doGetAndConvert(
+            path: 'my/contracts',
+            responseClass: Value\Contracts::class
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function accept(string $id): Contract\Accept
     {
-        $url = sprintf('my/contracts/%s/accept', $id);
-
-        return $this->convertResponse(
-            $this->post($url),
-            Contract\Accept::class
+        return $this->doPostAndConvert(
+            path: sprintf('my/contracts/%s/accept', $id),
+            responseClass: Contract\Accept::class
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function details(string $id): Contract
     {
-        $url = sprintf('my/contracts/%s', $id);
-
-        return $this->convertResponse(
-            $this->get($url),
-            Contract::class,
+        return $this->doGetAndConvert(
+            path: sprintf('my/contracts/%s', $id),
+            responseClass: Contract::class
         );
     }
 }
