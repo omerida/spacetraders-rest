@@ -6,13 +6,15 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Phparch\SpaceTradersRest\APIException;
 use Phparch\SpaceTradersRest\Client;
+use Phparch\SpaceTradersRest\Exception\APIAuthentication;
+use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value;
 
 class Agents extends Client
 {
     /**
      * @throws GuzzleException
-     * @throws APIException
+     * @throws APIAuthentication|APIFailure
      * @throws \JsonException
      */
     public function myAgent(): Value\Agent
@@ -30,29 +32,19 @@ class Agents extends Client
             throw new \InvalidArgumentException("Invalid agent: $symbol");
         }
 
-        try {
-            $response = $this->post(
-                'register',
-                data: [
-                    'symbol' => $symbol,
-                    'faction' => $faction
-                ],
-                authenticate: true
-            );
-
-            return $this->convertResponse(
-                $response,
-                Value\Register::class
-            );
-        } catch (ClientException $e) {
-            $body = $e->getResponse()->getBody()->getContents();
-            throw new APIException($body);
-        }
+        return $this->doPostAndConvert(
+            path: 'register',
+            data: [
+                'symbol' => $symbol,
+                'faction' => $faction
+            ],
+            responseClass: Value\Register::class
+        );
     }
 
     /**
      * @throws GuzzleException
-     * @throws APIException
+     * @throws APIAuthentication|APIFailure
      * @throws \JsonException
      */
     public function listAgents(): Value\Agents
@@ -63,6 +55,11 @@ class Agents extends Client
         );
     }
 
+    /**
+     * @throws GuzzleException
+     * @throws APIAuthentication|APIFailure
+     * @throws \JsonException
+     */
     public function getAgentDetails(string $symbol): Value\Agent
     {
         if (!$this->isValidAgent($symbol)) {
