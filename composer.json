@@ -44,7 +44,8 @@
     "phpbench/phpbench": "^1.4",
     "bmitch/churn-php": "^1.7",
     "phparkitect/phparkitect": "^0.7.0",
-    "rector/rector": "^2.3"
+    "rector/rector": "^2.3",
+    "phpunit/phpunit": "^13"
   },
   "extra": {
     "hooks": {
@@ -61,12 +62,13 @@
     }
   },
   "scripts": {
-    "check-code": ["@phpcs",  "@phpstan", "@phparkitect"],
+    "check-code": ["@phpcs",  "@phpstan", "@phpunit", "@phparkitect"],
     "fix-code": ["@phpcbf"],
     "phpmd": "vendor/bin/phpmd analyze --ignore-violations-on-exit --ignore-errors-on-exit --ruleset=phpmd.xml src" ,
     "phpstan": "vendor/bin/phpstan --memory-limit=1G",
     "phpcs": "vendor/bin/phpcs -s",
     "phpcbf": "vendor/bin/phpcbf",
+    "phpunit": "vendor/bin/phpunit tests",
     "churn": "vendor/bin/churn",
     "phparkitect": "vendor/bin/phparkitect check"
   }
