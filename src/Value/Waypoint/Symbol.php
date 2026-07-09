@@ -18,7 +18,7 @@ class Symbol implements \Stringable
         );
 
         if (!$match) {
-            throw new \InvalidArgumentException("Malformed waypoint string");
+            throw new \InvalidArgumentException("Malformed waypoint string $input", );
         }
 
         $this->sector = $match[1];

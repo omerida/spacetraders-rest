@@ -12,7 +12,7 @@ class ContractAcceptedEventTest extends TestCase
         // Stub the API response in Guzzle
         $guzzle = $this->createStub(\GuzzleHttp\Client::class);
         $guzzle->method('post')
-            ->willReturn($this->getAcceptedJSON());
+            ->willReturn($this->getAcceptedResponse());
 
         // Create a mock event dispatcher
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
@@ -20,7 +20,7 @@ class ContractAcceptedEventTest extends TestCase
             ->method('dispatch')
             ->with($this->isInstanceOf(ContractAccepted::class));
 
-        // Fake a client response
+        // Do the client call
         $client = new Client\Contracts(
             token: "SECRET_TOKEN",
             guzzle: $guzzle,
@@ -33,7 +33,7 @@ class ContractAcceptedEventTest extends TestCase
         // Stub the API response in Guzzle
         $guzzle = $this->createStub(\GuzzleHttp\Client::class);
         $guzzle->method('post')
-            ->willReturn($this->getNotAcceptedJSON());
+            ->willReturn($this->getNotAcceptedResponse());
 
         // Create a mock event dispatcher
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
@@ -50,7 +50,7 @@ class ContractAcceptedEventTest extends TestCase
         $client->accept("FOO");
     }
 
-    private function getAcceptedJSON(): Psr7\Response {
+    private function getAcceptedResponse(): Psr7\Response {
         $json = <<<JSON
 {
   "data": {
@@ -93,7 +93,7 @@ JSON;
         return new Psr7\Response(200, [], $json);
     }
 
-    private function getNotAcceptedJSON(): Psr7\Response {
+    private function getNotAcceptedResponse(): Psr7\Response {
         $json = <<<JSON
 {
   "data": {
