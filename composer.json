@@ -32,7 +32,8 @@
     "predis/predis": "^2.3",
     "symfony/cache": "^7.2",
     "guzzlehttp/psr7": "^2.7",
-    "lcobucci/jwt": "^5.5"
+    "lcobucci/jwt": "^5.5",
+    "psr/event-dispatcher": "^1.0"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",
