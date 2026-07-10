@@ -5,6 +5,7 @@ namespace Phparch\SpaceTradersRest\Value\Contract;
 class Deliver
 {
     public function __construct(
+        /** TODO should be an ENUM for trade symbol */
         public readonly string $tradeSymbol,
         public readonly string $destinationSymbol,
         /** @var non-negative-int */

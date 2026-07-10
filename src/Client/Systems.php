@@ -4,6 +4,7 @@ namespace Phparch\SpaceTradersRest\Client;
 
 use GuzzleHttp\Exception\ClientException;
 use Phparch\SpaceTradersRest\APIException;
+use Phparch\SpaceTradersRest\Event\SystemMarketData;
 use Phparch\SpaceTradersRest\Exception\APIAuthentication;
 use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value;
@@ -28,10 +29,18 @@ class Systems extends \Phparch\SpaceTradersRest\Client
 
     public function market(string $system, string $waypoint): Value\Market
     {
-        return $this->doGetAndConvert(
+        $response = $this->doGetAndConvert(
             sprintf('systems/%s/waypoints/%s/market', $system, $waypoint),
             responseClass: Value\Market::class
         );
+
+        if ($this->eventDispatcher && $response) {
+            $this->eventDispatcher->dispatch(
+                new SystemMarketData($response)
+            );
+        }
+
+        return $response;
     }
 
     public function shipyard(string $system, string $waypoint): Value\Shipyard

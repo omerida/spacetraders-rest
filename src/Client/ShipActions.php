@@ -4,6 +4,7 @@ namespace Phparch\SpaceTradersRest\Client;
 
 use CuyZ\Valinor\Mapper\MappingError;
 use GuzzleHttp\Exception\GuzzleException;
+use Phparch\SpaceTradersRest\Event\CargoSold;
 use Phparch\SpaceTradersRest\Exception\APIAuthentication;
 use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Client;
@@ -135,11 +136,19 @@ class ShipActions extends Client
         $data['symbol'] = $tradegood->value;
         $data['units'] = $units;
 
-        return $this->doPostAndConvert(
+        $response = $this->doPostAndConvert(
             path: 'my/ships/' . $ship . '/sell',
             responseClass: Fleet\SellCargo::class,
             data: $data
         );
+
+        if ($this->eventDispatcher && $response->transaction) {
+            $this->eventDispatcher->dispatch(
+                new CargoSold($response)
+            );
+        }
+
+        return $response;
     }
 
     /**

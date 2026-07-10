@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Phparch\SpaceTradersRest\Exception\APIAuthentication;
 use Phparch\SpaceTradersRest\Exception\APIFailure;
-use Phparch\SpaceTradersRest\Value\Fleet\DockShip;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -24,6 +24,7 @@ abstract class Client
     final public function __construct(
         private readonly string $token,
         private readonly \GuzzleHttp\Client $guzzle,
+        protected ?EventDispatcherInterface $eventDispatcher = null,
     ) {
     }
 
@@ -141,15 +142,13 @@ abstract class Client
             $headers['Authorization'] = 'Bearer ' . $this->token;
         }
 
-        $response = $this->guzzle->post(
+        return $this->guzzle->post(
             $this->baseURI . $url,
             [
                 'headers' => $headers,
                 'body' => $data ? json_encode($data) : null,
             ]
         );
-
-        return $response;
     }
 
     /**
