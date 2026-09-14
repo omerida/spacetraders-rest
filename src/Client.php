@@ -225,8 +225,15 @@ abstract class Client
                 throw new APIFailure($body);
             }
 
-            if ($e->getCode() >= 400) {
-                throw new APIAuthentication($body);
+            switch ($e->getCode()) {
+                case 402: // payment required
+                case 403: // forbidden
+                    throw new APIAuthentication($body);
+                case 406: // not acceptable
+                case 405: // method not allowed
+                case 404: // not found
+                case 400: // bad request
+                    throw new APIFailure($body);
             }
 
             throw $e;
@@ -265,8 +272,12 @@ abstract class Client
                 throw new APIFailure($body);
             }
 
-            if ($e->getCode() >= 400) {
+            if ($e->getCode() === 404) {
                 throw new APIAuthentication($body);
+            }
+
+            if ($e->getCode() >= 400) {
+                throw new APIFailure($body);
             }
 
             throw $e;
