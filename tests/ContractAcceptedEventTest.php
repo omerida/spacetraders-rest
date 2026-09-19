@@ -66,7 +66,7 @@ class ContractAcceptedEventTest extends TestCase
         },
         "deliver": [
           {
-            "tradeSymbol": "string",
+            "tradeSymbol": "ICE_WATER",
             "destinationSymbol": "string",
             "unitsRequired": 1,
             "unitsFulfilled": 1
@@ -109,7 +109,7 @@ JSON;
         },
         "deliver": [
           {
-            "tradeSymbol": "string",
+            "tradeSymbol": "ICE_WATER",
             "destinationSymbol": "string",
             "unitsRequired": 1,
             "unitsFulfilled": 1

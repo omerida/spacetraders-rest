@@ -2,11 +2,12 @@
 
 namespace Phparch\SpaceTradersRest\Value\Contract;
 
+use Phparch\SpaceTradersRest\Value\Goods;
+
 class Deliver
 {
     public function __construct(
-        /** TODO should be an ENUM for trade symbol */
-        public readonly string $tradeSymbol,
+        public readonly Goods\Symbol $tradeSymbol,
         public readonly string $destinationSymbol,
         /** @var non-negative-int */
         public int $unitsRequired {
