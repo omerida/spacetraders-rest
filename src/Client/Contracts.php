@@ -4,11 +4,12 @@ namespace Phparch\SpaceTradersRest\Client;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Phparch\SpaceTradersRest\Client;
-use Phparch\SpaceTradersRest\Event\ContractAccepted;
+use Phparch\SpaceTradersRest\Event;
 use Phparch\SpaceTradersRest\Exception\APIAuthentication;
 use Phparch\SpaceTradersRest\Exception\APIFailure;
 use Phparch\SpaceTradersRest\Value;
 use Phparch\SpaceTradersRest\Value\Contract;
+use Phparch\SpaceTradersRest\Value\Goods;
 
 class Contracts extends Client
 {
@@ -41,7 +42,7 @@ class Contracts extends Client
 
         if ($this->eventDispatcher && $response->contract->accepted) {
             $this->eventDispatcher->dispatch(
-                new ContractAccepted($response)
+                new Event\ContractAccepted($response)
             );
         }
 
@@ -60,5 +61,47 @@ class Contracts extends Client
             path: sprintf('my/contracts/%s', $id),
             responseClass: Contract::class
         );
+    }
+
+    public function deliverCargo(
+        string $id,
+        string $shipSymbol,
+        Goods\Symbol $good,
+        int $units
+    ): Contract\DeliverCargo
+    {
+        $response =  $this->doPostAndConvert(
+            path: sprintf('my/contracts/%s/deliver', $id),
+            responseClass: Contract\DeliverCargo::class,
+            data: [
+                'shipSymbol' => $shipSymbol,
+                'tradeSymbol' => $good->value,
+                'units' => $units,
+            ]
+        );
+
+        if ($this->eventDispatcher && $response->contract) {
+            $this->eventDispatcher->dispatch(
+                new Event\ContractCargoDelivered($response)
+            );
+        }
+
+        return $response;
+    }
+
+    public function fulfill(string $id): Contract\Fulfill
+    {
+        $response = $this->doPostAndConvert(
+            path: sprintf('my/contracts/%s/fulfill', $id),
+            responseClass: Contract\Fulfill::class,
+        );
+
+        if ($this->eventDispatcher && $response->contract->fulfilled) {
+            $this->eventDispatcher->dispatch(
+                new Event\ContractFulfilled($response)
+            );
+        }
+
+        return $response;
     }
 }
