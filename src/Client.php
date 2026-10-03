@@ -25,7 +25,8 @@ abstract class Client
         private readonly string $token,
         private readonly \GuzzleHttp\Client $guzzle,
         protected ?EventDispatcherInterface $eventDispatcher = null,
-    ) {
+    )
+    {
     }
 
     /**
@@ -51,7 +52,8 @@ abstract class Client
         string $url,
         int $limit = 10,
         bool $authenticate = true
-    ): ResponseInterface {
+    ): ResponseInterface
+    {
         $headers = [
             'Content-Type' => 'application/json'
         ];
@@ -129,7 +131,8 @@ abstract class Client
         string $url,
         array $data = [],
         bool $authenticate = true
-    ): ResponseInterface {
+    ): ResponseInterface
+    {
 
         $headers = [];
         if ($data) {
@@ -160,7 +163,8 @@ abstract class Client
         string $url,
         array $data = [],
         bool $authenticate = true
-    ): ResponseInterface {
+    ): ResponseInterface
+    {
         $headers = [
             'Content-Type' => 'application/json'
         ];
@@ -178,17 +182,18 @@ abstract class Client
     }
 
     /**
-     * @todo Use an interface instead of an AbstractClass here?
-     *
-     * @template T of object
      * @param class-string<T> $responseClass
      * @return T
      * @throws \JsonException
+     * @todo Use an interface instead of an AbstractClass here?
+     *
+     * @template T of object
      */
     protected function convertResponse(
         \Psr\Http\Message\ResponseInterface $response,
         string $responseClass
-    ) {
+    )
+    {
         $json = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
         if ($json) {
@@ -212,7 +217,8 @@ abstract class Client
     protected function doGetAndConvert(
         string $path,
         string $responseClass
-    ) {
+    )
+    {
         try {
             return $this->convertResponse(
                 $this->get($path),
@@ -220,23 +226,7 @@ abstract class Client
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-
-            if ($e->getCode() >= 500) {
-                throw new APIFailure($body);
-            }
-
-            switch ($e->getCode()) {
-                case 402: // payment required
-                case 403: // forbidden
-                    throw new APIAuthentication($body);
-                case 406: // not acceptable
-                case 405: // method not allowed
-                case 404: // not found
-                case 400: // bad request
-                    throw new APIFailure($body);
-            }
-
-            throw $e;
+            throw $this->mapCodeToException($e, $body);
         }
     }
 
@@ -255,7 +245,8 @@ abstract class Client
         string $responseClass,
         array $data = [],
         bool $authenticate = true
-    ) {
+    )
+    {
         try {
             $response = $this->post(
                 url: $path,
@@ -268,19 +259,24 @@ abstract class Client
             );
         } catch (ClientException $e) {
             $body = $e->getResponse()->getBody()->getContents();
-            if ($e->getCode() >= 500) {
-                throw new APIFailure($body);
-            }
-
-            if ($e->getCode() === 404) {
-                throw new APIAuthentication($body);
-            }
-
-            if ($e->getCode() >= 400) {
-                throw new APIFailure($body);
-            }
-
-            throw $e;
+            throw $this->mapCodeToException($e, $body);
         }
+    }
+
+    private function mapCodeToException(\Exception $e, string $body): \Exception
+    {
+        switch ($e->getCode()) {
+            case 401: // Unauthorized
+            case 402: // payment required
+            case 403: // forbidden
+                return new APIAuthentication($body);
+            case 406: // not acceptable
+            case 405: // method not allowed
+            case 404: // not found
+            case 400: // bad request
+                return new APIFailure($body);
+        }
+
+        return $e;
     }
 }
