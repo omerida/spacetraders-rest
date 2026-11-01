@@ -43,6 +43,12 @@ class ShipTravel extends Client
         );
     }
 
+    /**
+     * @throws APIAuthentication
+     * @throws APIFailure
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function orbitShip(string $ship): Fleet\OrbitShip
     {
         return $this->doPostAndConvert(
