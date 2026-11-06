@@ -118,7 +118,7 @@ class ShipActions extends Client
     }
 
     /**
-     * @param string|value-of<Goods\Symbol> $cargo
+     * @param string|Goods\Symbol $cargo
      *
      * @throws APIAuthentication
      * @throws APIFailure
