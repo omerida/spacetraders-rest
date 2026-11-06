@@ -118,6 +118,8 @@ class ShipActions extends Client
     }
 
     /**
+     * @param string|Goods\Symbol $cargo
+     *
      * @throws APIAuthentication
      * @throws APIFailure
      * @throws GuzzleException
@@ -125,13 +127,17 @@ class ShipActions extends Client
      */
     public function sellCargo(
         string $ship,
-        string $cargo,
+        string|Goods\Symbol $cargo,
         ?int $units = null,
     ): Fleet\SellCargo
     {
         $data = [];
         // Validate trade good
-        $tradegood = Goods\Symbol::from($cargo);
+        if (is_string($cargo)) {
+            $tradegood = Goods\Symbol::from($cargo);
+        } else {
+            $tradegood = $cargo;
+        }
 
         $data['symbol'] = $tradegood->value;
         $data['units'] = $units;
